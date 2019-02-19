@@ -27,6 +27,7 @@ type rabbitMqTest struct {
 }
 
 func rabbitMqTestNew(env *cfenv.App) SmokeTest {
+	// TODO: replace with searching on tag basis, possibly resulting in multiple returns in case of multiple matches.
 	rabbitMqServices, err := env.Services.WithLabel("p-rabbitmq")
 	if err != nil {
 		fmt.Println("RabbitMQ service not bound to smoketest app.")

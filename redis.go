@@ -17,6 +17,7 @@ type redisTest struct {
 }
 
 func redisTestNew(env *cfenv.App) SmokeTest {
+	// TODO: replace with searching on tag basis, possibly resulting in multiple returns in case of multiple matches.
 	redisServices, err := env.Services.WithLabel("p-redis")
 	if err != nil {
 		fmt.Println(err.Error())
