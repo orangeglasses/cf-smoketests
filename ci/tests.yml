@@ -1,0 +1,17 @@
+---
+params:
+  CHECK_URL:
+platform: linux
+
+image_resource:
+  type: docker-image
+  source:
+    repository: ruurdk/cf_tools
+
+inputs:
+- name: resource-git-smoketests
+
+run:
+  path: resource-git-smoketests/ci/tests.sh
+#  args: [ "https://smoketests.<appdomain>/v1/status" ]
+
