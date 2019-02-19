@@ -1,17 +1,15 @@
 applications:
-- name: smokeTests
+- name: smoketests
   instances: 1
   memory: 32M
   disk_quota: 32M
-  routes:
-  - route: smoketests.<appdomain>
   stack: cflinuxfs3
   buildpack: go_buildpack
   env:
-    GOPACKAGENAME: SmokeTests
-    DASHBOARD_DATA_ENDPOINT: http://smoketestsdashboard.<appdomain>/api/smokestate
-    ADFS_RES_URL: http://smoketests-resource.<appdomain>/adfsLogin
-    UAA_RES_URL: http://smoketests-resource.<appdomain>/uaaLogin
+    GOPACKAGENAME: smoketests
+    DASHBOARD_DATA_ENDPOINT: http://smoketestsdashboard/api/smokestate
+    ADFS_RES_URL: http://smoketests-sso-resource/adfsLogin
+    UAA_RES_URL: http://smoketests-sso-resource/uaaLogin
   services:
   - smoketests-db
   - smoketests-sso-uaa
