@@ -4,7 +4,8 @@ applications:
   memory: 32M
   disk_quota: 32M
   stack: cflinuxfs3
-  buildpack: go_buildpack
+  buildpacks: 
+  - go_buildpack
   env:
     GOPACKAGENAME: smoketests
     DASHBOARD_DATA_ENDPOINT: http://smoketestsdashboard/api/smokestate
@@ -14,7 +15,6 @@ applications:
   - smoketests-db
   - smoketests-sso-uaa
   - smoketests-rabbitmq
-  - smoketests-rabbitmq-od
   - smoketests-redis
   - smoketests-nfs
   - autoscaler
