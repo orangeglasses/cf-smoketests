@@ -1,7 +1,7 @@
 git-uri-smoketests: https://github.com/orangeglasses/cf-smoketests
 git-uri-smoketests-sso-resource: https://github.com/orangeglasses/cf-smoketests-sso-resource
 git-private-key: 
-cf-api: api.<appdomain>
+cf-api: https://api.system.pcf.lab.local
 cf-user: pcf-ci-user
 cf-password: 
 cf-org: system
@@ -9,7 +9,7 @@ cf-space: system
 interval: 5m
 manifest_filename: manifest.yml
 check_url: https://smoketests.<appdomain>/v1/status
-uaa-target: https://uaa.<appdomain>
+uaa-target: https://uaa.system.pcf.lab.local
 uaa-admin-user: admin
 uaa-admin-password: 
 uaa-client-id: 

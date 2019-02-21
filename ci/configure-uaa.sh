@@ -1,7 +1,12 @@
 #!/bin/sh
 
 # Configure UAA before smoke tests
+if $insecure; then
+uaac target $uaatarget --skip-ssl-validation
+else
 uaac target $uaatarget
+fi
+
 uaac token client get $uaaadminuser -s "$uaaadminpassword"
 
 # Set authorized grant types.
