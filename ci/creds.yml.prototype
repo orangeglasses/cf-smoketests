@@ -1,14 +1,12 @@
-git-uri-smoketests: git@github.com/orangeglasses/cf-smoketests.git
-git-uri-smoketests-sso-resource: git@github.com/orangeglasses/cf-smoketests-sso-resource.git
+git-uri-smoketests: https://github.com/orangeglasses/cf-smoketests
+git-uri-smoketests-sso-resource: https://github.com/orangeglasses/cf-smoketests-sso-resource
 git-private-key: 
 cf-api: api.<appdomain>
 cf-user: pcf-ci-user
 cf-password: 
-cf-org: PCF
-cf-space: Test
+cf-org: system
+cf-space: system
 interval: 5m
-slack-webtoken: 
-slack_channel: 
 manifest_filename: manifest.yml
 check_url: https://smoketests.<appdomain>/v1/status
 uaa-target: https://uaa.<appdomain>
