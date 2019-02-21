@@ -20,4 +20,4 @@ params:
   username:
   password:
   manifest:
-  
+  insecure:  

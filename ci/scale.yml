@@ -12,3 +12,11 @@ inputs:
 
 run:
   path: resource-git-smoketests/ci/scale.sh
+
+params:
+  api:
+  insecure:
+  organization:
+  space:
+  username:
+  password:

@@ -7,7 +7,11 @@ duration="10"
 
 # login CloudFoundry
 
+if $insecure; then
+cf login -a $api -u $username -p $password -o $organization -s $space --skip-ssl-validation
+else
 cf login -a $api -u $username -p $password -o $organization -s $space
+fi
 
 # install autoscaler plugin
 
