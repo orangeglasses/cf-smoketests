@@ -12,3 +12,12 @@ inputs:
 
 run:
   path: resource-git-smoketests/ci/deploy.sh
+
+params:
+  api:
+  space:
+  organization:
+  username:
+  password:
+  manifest:
+  

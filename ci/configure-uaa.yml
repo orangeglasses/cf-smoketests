@@ -12,3 +12,8 @@ inputs:
 run:
   path: resource-git-smoketests/ci/configure-uaa.sh
 
+params:
+  uaaadminpassword:
+  uaaadminuser:
+  uaaclientid:
+  uaatarget:
