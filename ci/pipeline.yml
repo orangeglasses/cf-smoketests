@@ -11,20 +11,12 @@ jobs:
   - task: task-deploy
     file: resource-git-smoketests/ci/deploy.yml
     params:
-      api: {{cf-api}}
-      username: {{cf-user}}
-      password: {{cf-password}}
-      organization: {{cf-org}}
-      space: {{cf-space}}
-      manifest: {{manifest_filename}}
-  on_failure:
-    put: slack-alert
-    params:
-      username: Smoke Alert
-      icon_emoji: ':dash:'
-      channel: ((slack_channel))
-      silent: true
-      text: "Smoke Detected while pushing smoketests app! Better check it out now!"
+      api: ((cf-api))
+      username: ((cf-user))
+      password: ((cf-password))
+      organization: ((cf-org))
+      space: ((cf-space))
+      manifest: ((manifest_filename))
 - name: push-smoketest-sso-resource
   build_logs_to_retain: 100
   public: false
@@ -41,15 +33,7 @@ jobs:
       password: ((cf-password))
       organization: ((cf-org))
       space: ((cf-space))
-      manifest: {{manifest_filename}}
-  on_failure:
-    put: slack-alert
-    params:
-      username: Smoke Alert
-      icon_emoji: ':dash:'
-      channel: ((slack_channel))
-      silent: true
-      text: "Smoke Detected while pushing smoketests app! Better check it out now!"
+      manifest: ((manifest_filename))
 - name: configure-uaa
   build_logs_to_retain: 100
   public: false
@@ -65,14 +49,6 @@ jobs:
       uaaadminuser: ((uaa-admin-user))
       uaaadminpassword: ((uaa-admin-password))
       uaaclientid: ((uaa-client-id))
-  on_failure:
-    put: slack-alert
-    params:
-      username: Smoke Alert
-      icon_emoji: ':dash:'
-      channel: ((slack_channel))
-      silent: true
-      text: "Smoke detected while configuring UAA! Better check it out now!"
 - name: run-tests
   build_logs_to_retain: 100
   public: false
@@ -87,14 +63,6 @@ jobs:
     file: resource-git-smoketests/ci/tests.yml
     params:
       CHECK_URL: ((check_url))
-    on_failure:
-      put: slack-alert
-      params:
-        username: Smoke Alert
-        icon_emoji: ':dash:'
-        channel: ((slack_channel))
-        silent: true
-        text: "Smoke Detected while running tests against smoketests app!"
   - task: scaletest
     file: resource-git-smoketests/ci/scale.yml
     params:
@@ -103,21 +71,8 @@ jobs:
       password: ((cf-password))
       organization: ((cf-org))
       space: ((cf-space))
-    on_failure:
-      put: slack-alert
-      params:
-        username: Smoke Alert
-        icon_emoji: ':dash:'
-        channel: ((slack_channel))
-        silent: true
-        text: "Smoketest app refuses to scale down, better check the autoscaler!"
 
 resource_types:
-- name: slack-notification
-  type: docker-image
-  source:
-    repository: cfcommunity/slack-notification-resource
-    tag: latest
 - name: pivnet
   type: docker-image
   source:
@@ -142,14 +97,9 @@ resources:
   source:
     interval: ((interval))
 
-- name: slack-alert
-  type: slack-notification
-  source:
-    url: ((slack-webtoken))
-
 - name: pcf-app-autoscaler
   type: pivnet
   source:
-    api_token: {{api-token}}
+    api_token: ((api-token))
     product_slug: pcf-app-autoscaler
 
