@@ -14,4 +14,4 @@ uaa-admin-user: admin
 uaa-admin-password: 
 uaa-client-id: 
 api-token: 
-services: services.yml
+services: ci/services.yml
