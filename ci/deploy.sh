@@ -15,7 +15,7 @@ fi
 tempManifest="tempmanifest.yml"
 cd ./resource-git-smoketests/ &&\
 cat $manifest > $tempManifest &&\
-$services >> $tempManifest &&\
+cat $services >> $tempManifest &&\
 cf push -f $tempManifest
 
 # eval "cat ../trace.log; exit $?"
