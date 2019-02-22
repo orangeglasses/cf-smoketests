@@ -17,6 +17,7 @@ jobs:
       organization: ((cf-org))
       space: ((cf-space))
       manifest: ((manifest_filename))
+      services: ((services))
 - name: push-smoketest-sso-resource
   build_logs_to_retain: 100
   public: false

@@ -21,3 +21,4 @@ params:
   password:
   manifest:
   insecure:  
+  services:
