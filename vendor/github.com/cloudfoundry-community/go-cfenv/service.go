@@ -21,7 +21,7 @@ type Service struct {
 	Tags         []string               // tags for the service
 	Plan         string                 // plan of the service
 	Credentials  map[string]interface{} // credentials for the service
-	Volume_Mounts []map[string]string
+	VolumeMounts []map[string]string    `mapstructure:"volume_mounts"` // volume mount info as provided by the nfsbroker
 }
 
 func (s *Service) CredentialString(key string) (string, bool) {

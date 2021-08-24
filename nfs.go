@@ -19,7 +19,7 @@ func nfsTestNew(env *cfenv.App) SmokeTest {
 		fmt.Println(err.Error())
 		return &nfsTest{}
 	}
-	mount := nfsServices[0].Volume_Mounts[0]
+	mount := nfsServices[0].VolumeMounts[0]
 
 	return &nfsTest{
 		path: mount["container_dir"],
