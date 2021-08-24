@@ -65,7 +65,7 @@ func (m *mySQLTest) run() SmokeTestResult {
 
 	// Open connection.
 	openConnection := func() (interface{}, error) {
-		return sql.Open("mySQL", fmt.Sprintf("%s:%s@tcp(%s:%.f)/%v?readTimeout=30s&writeTimeout=30s&timeout=30s", m.username, m.password, m.hostname, m.port, m.dbname))
+		return sql.Open("mysql", fmt.Sprintf("%s:%s@tcp(%s:%.f)/%v?readTimeout=30s&writeTimeout=30s&timeout=30s", m.username, m.password, m.hostname, m.port, m.dbname))
 	}
 	obj, success := RunTestPart(openConnection, mySQLTestConnection, &results)
 	if !success {
