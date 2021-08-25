@@ -14,9 +14,6 @@ image_resource:
 inputs:
 - name: resource-git-smoketests
 
-params:
-- CHECK_URL:
-
 run:
   path: resource-git-smoketests/ci/tests.sh
 #  args: [ "https://smoketests.<appdomain>/v1/status" ]
