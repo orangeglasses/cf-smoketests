@@ -40,6 +40,7 @@ jobs:
   plan:
   - get: resource-git-smoketests
   - get: pcf-app-autoscaler
+    tags: [ "internet" ]
   - get: time-trigger
     trigger: true
     passed: [ push-smoketest-app, configure-uaa ] #, push-smoketest-sso-resource ]
@@ -60,7 +61,8 @@ resource_types:
 - name: pivnet 
   type: docker-image
   source:
-    repository: "harbor.cp.haas.politie:443/library/pivnet-resource:latest"
+    repository: harbor.cp.haas.politie:443/library/pivnet-resource
+    tag: latest
     insecure_registries:
     - harbor.cp.haas.politie:443
 
@@ -84,4 +86,5 @@ resources:
   source:
     api_token: ((api-token))
     product_slug: pcf-app-autoscaler
+
 

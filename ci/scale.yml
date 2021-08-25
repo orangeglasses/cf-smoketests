@@ -4,7 +4,8 @@ platform: linux
 image_resource:
   type: docker-image
   source:
-    repository: "harbor.sandbox.haas.politie:443/platform-team/cf-uaa:latest"
+    repository: harbor.sandbox.haas.politie:443/platform-team/cf_tools
+    tag: latest
     insecure_registries:
     - harbor.sandbox.haas.politie:443
 
