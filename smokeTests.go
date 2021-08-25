@@ -39,10 +39,8 @@ func (s *smokeTestProgram) init(env *cfenv.App) {
 	s.tests = append(s.tests,
 		meTestNew(),
 		mySQLTestNew(env),
-		ssoTestNew(env),
 		rabbitMqTestNew(env),
-		redisTestNew(env),
-		nfsTestNew(env))
+		redisTestNew(env))
 }
 
 func (s *smokeTestProgram) run() []SmokeTestResult {
