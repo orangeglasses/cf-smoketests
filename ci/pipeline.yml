@@ -18,23 +18,6 @@ jobs:
       space: ((cf-space))
       manifest: ((manifest_filename))
       services: ((services))
-- name: push-smoketest-sso-resource
-  build_logs_to_retain: 100
-  public: false
-  serial: true
-  plan:
-  - get: time-trigger
-    trigger: true
-  - get: resource-git-smoketests-sso-resource
-  - task: task-deploy
-    file: resource-git-smoketests-sso-resource/ci/deploy.yml
-    params:
-      api: ((cf-api))
-      username: ((cf-user))
-      password: ((cf-password))
-      organization: ((cf-org))
-      space: ((cf-space))
-      manifest: ((manifest_filename))
 - name: configure-uaa
   build_logs_to_retain: 100
   public: false
@@ -59,7 +42,7 @@ jobs:
   - get: pcf-app-autoscaler
   - get: time-trigger
     trigger: true
-    passed: [ push-smoketest-app, configure-uaa, push-smoketest-sso-resource ]
+    passed: [ push-smoketest-app, configure-uaa ] #, push-smoketest-sso-resource ]
   - task: testscript
     file: resource-git-smoketests/ci/tests.yml
     params:
@@ -74,25 +57,22 @@ jobs:
       space: ((cf-space))
 
 resource_types:
-- name: pivnet
+- name: pivnet 
   type: docker-image
   source:
-    repository: pivotalcf/pivnet-resource
-    tag: latest-final
+    repository: "harbor.cp.haas.politie:443/library/pivnet-resource:latest"
+    insecure_registries:
+    - harbor.cp.haas.politie:443
 
 resources:
 - name: resource-git-smoketests
   type: git
   source:
     uri: ((git-uri-smoketests))
-    private_key: ((git-private-key))
-
-- name: resource-git-smoketests-sso-resource
-  type: git
-  source:
-    uri: ((git-uri-smoketests-sso-resource))
-    private_key: ((git-private-key))
-
+    username: ((cf-smoketest-git-token.username))
+    password: ((cf-smoketest-git-token.password))
+    branch: master
+    
 - name: time-trigger
   type: time
   source:
@@ -100,6 +80,7 @@ resources:
 
 - name: pcf-app-autoscaler
   type: pivnet
+  tags: [ "internet" ]
   source:
     api_token: ((api-token))
     product_slug: pcf-app-autoscaler

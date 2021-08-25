@@ -7,13 +7,10 @@ applications:
   - go_buildpack
   env:
     GOPACKAGENAME: smoketests
-    DASHBOARD_DATA_ENDPOINT: http://smoketestsdashboard/api/smokestate
+    DASHBOARD_DATA_ENDPOINT: https://smoketestsdashboard.apps.sandbox.haas.politie/api/smokestate
     ADFS_RES_URL: http://smoketests-sso-resource/adfsLogin
     UAA_RES_URL: http://smoketests-sso-resource/uaaLogin
   services:
   - smoketests-db
-  - smoketests-sso-uaa
   - smoketests-rabbitmq
   - smoketests-redis
-  - smoketests-nfs
-  - autoscaler
