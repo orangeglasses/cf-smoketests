@@ -2,4 +2,4 @@
   - smoketests-db
   - smoketests-rabbitmq
   - smoketests-redis
-
+  - autoscaler
