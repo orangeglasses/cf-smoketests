@@ -1,4 +1,3 @@
-foundation: ota
 git-uri-smoketests: https://gitlab.unix.int.politie/haas/cf-smoketests.git 
 git-uri-smoketests-sso-resource: https://github.com/orangeglasses/cf-smoketests-sso-resource
 git-private-key: ((gitlab_token)) 
