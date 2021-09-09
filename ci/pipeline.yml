@@ -11,7 +11,7 @@ jobs:
   - task: task-deploy
     file: resource-git-smoketests/ci/deploy.yml
     params:
-      api: ((cf-api))
+      api: https://api.sys.((foundation)).haas.politie
       username: ((cf-user))
       password: ((cf-password))
       organization: ((cf-org))
@@ -29,7 +29,7 @@ jobs:
   - task: task-deploy
     file: resource-git-smoketests/ci/configure-uaa.yml
     params:
-      uaatarget: ((uaa-target))
+      uaatarget: https://uaa.sys.((foundation)).haas.politie
       uaaadminuser: ((uaa-admin-user))
       uaaadminpassword: ((uaa-admin-password))
       uaaclientid: ((uaa-client-id))
@@ -47,11 +47,11 @@ jobs:
   - task: testscript
     file: resource-git-smoketests/ci/tests.yml
     params:
-      CHECK_URL: ((check_url))
+      CHECK_URL: https://smoketests.apps.((foundation)).haas.politie/v1/status 
   - task: scaletest
     file: resource-git-smoketests/ci/scale.yml
     params:
-      api: ((cf-api))
+      api: https://api.sys.((foundation)).haas.politie
       username: ((cf-user))
       password: ((cf-password))
       organization: ((cf-org))

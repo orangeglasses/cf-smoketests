@@ -36,7 +36,6 @@ func redisTestNew(env *cfenv.App) SmokeTest {
 }
 
 func (r *redisTest) run() SmokeTestResult {
-
 	results := make([]SmokeTestResult, 0)
 
 	ping := func() (interface{}, error) {
