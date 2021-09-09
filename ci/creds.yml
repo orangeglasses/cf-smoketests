@@ -8,9 +8,6 @@ cf-password: ((svc_platform-team.password))
 cf-org: platformteam
 cf-space: smoketest 
 interval: 5m
-manifest_filename: manifest-((foundation)).yml
-#check_url: https://smoketests.apps.((foundation)).haas.politie/v1/status
-#uaa-target: https://uaa.sys.((foundation)).haas.politie
 uaa-admin-user: admin
 uaa-admin-password: ((uaa_admin_password)) 
 uaa-client-id: smoketest  

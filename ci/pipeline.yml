@@ -16,7 +16,7 @@ jobs:
       password: ((cf-password))
       organization: ((cf-org))
       space: ((cf-space))
-      manifest: ((manifest_filename))
+      manifest: manifest-((foundation)).yml 
       services: ((services))
 - name: configure-uaa
   build_logs_to_retain: 100
