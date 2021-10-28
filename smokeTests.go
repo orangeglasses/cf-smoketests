@@ -40,7 +40,7 @@ func (s *smokeTestProgram) init(env *cfenv.App) {
 		meTestNew(),
 		mySQLTestNew(env),
 		rabbitMqTestNew(env),
-		onrabbitMqTestNew(env),
+		postgresTestNew(env),
 		redisTestNew(env))
 }
 
