@@ -1,6 +1,6 @@
 module github.com/orangeglasses/cf-smoketests
 
-go 1.15
+go 1.17
 
 require (
 	github.com/cloudfoundry-community/go-cfenv v1.18.0
