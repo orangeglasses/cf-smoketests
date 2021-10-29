@@ -19,4 +19,4 @@ applications:
   - smoketests-rabbitmq
   - smoketests-redis
   - autoscaler
-    stack: cflinuxfs3
+  stack: cflinuxfs3
