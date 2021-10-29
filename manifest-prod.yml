@@ -17,7 +17,6 @@ applications:
     SITE: Driebergen
   services:
   - smoketests-db
-  - smoketests-rabbitmq
   - smoketests-redis
   - autoscaler
   stack: cflinuxfs3
