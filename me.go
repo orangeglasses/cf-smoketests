@@ -16,7 +16,7 @@ func (m *me) run() SmokeTestResult {
 	sitetype := os.Getenv("TYPE")
 	sitename := os.Getenv("SITE")
 	if (sitetype != "" && sitename != "") {
-		name = sitetype + "\n" + "[" + sitename + "]"
+		name = sitetype + "\n" + sitename
 	}
 	return SmokeTestResult{Key: "me", Name: name, Result: true}
 }
