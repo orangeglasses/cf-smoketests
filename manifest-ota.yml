@@ -14,6 +14,7 @@ applications:
     ADFS_RES_URL: http://smoketests-sso-resource/adfsLogin
     UAA_RES_URL: http://smoketests-sso-resource/uaaLogin
     TYPE: OTA
+    SITE: Driebergen
   services:
   - smoketests-db
   - smoketests-rabbitmq
