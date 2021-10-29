@@ -14,7 +14,7 @@ applications:
     ADFS_RES_URL: http://smoketests-sso-resource/adfsLogin
     UAA_RES_URL: http://smoketests-sso-resource/uaaLogin
     TYPE: SandBox
-    Site: Driebergen
+    Site: Driebergen DB25
   services:
   - smoketests-db
   - smoketests-rabbitmq
