@@ -10,7 +10,7 @@ applications:
   env:
     GOPACKAGENAME: smoketests
     GOVERSION: go1.16
-    DASHBOARD_DATA_ENDPOINT: https://smoketestsdashboard.apps.ota.haas.politie/api/smokestate
+    DASHBOARD_DATA_ENDPOINT: https://smoketestsdashboard.apps.sandbox.haas.politie/api/smokestate
     ADFS_RES_URL: http://smoketests-sso-resource/adfsLogin
     UAA_RES_URL: http://smoketests-sso-resource/uaaLogin
     TYPE: OTA 
