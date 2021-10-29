@@ -13,7 +13,7 @@ applications:
     DASHBOARD_DATA_ENDPOINT: https://smoketestsdashboard.apps.sandbox.haas.politie/api/smokestate
     ADFS_RES_URL: http://smoketests-sso-resource/adfsLogin
     UAA_RES_URL: http://smoketests-sso-resource/uaaLogin
-    TYPE: OTA
+    TYPE: SandBox
   services:
   - smoketests-db
   - smoketests-rabbitmq
