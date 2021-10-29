@@ -1,5 +1,9 @@
 package main
 
+import (
+	"os"
+)
+
 type me struct {
 }
 
