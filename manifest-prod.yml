@@ -1,16 +1,23 @@
 applications:
 - name: smoketests
   instances: 1
+  routes:
+  - route: smoketests.apps.prod.haas.politie
   memory: 32M
   disk_quota: 32M
-  buildpacks: 
+  buildpacks:
   - go_buildpack
   env:
     GOPACKAGENAME: smoketests
+    GOVERSION: go1.16
     DASHBOARD_DATA_ENDPOINT: https://smoketestsdashboard.apps.prod.haas.politie/api/smokestate
     ADFS_RES_URL: http://smoketests-sso-resource/adfsLogin
     UAA_RES_URL: http://smoketests-sso-resource/uaaLogin
+    TYPE: Productie
+    SITE: Driebergen
   services:
   - smoketests-db
   - smoketests-rabbitmq
   - smoketests-redis
+  - autoscaler
+  stack: cflinuxfs3
