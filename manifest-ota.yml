@@ -2,19 +2,18 @@ applications:
 - name: smoketests
   instances: 1
   routes:
-  - route: smoketests.apps.sandbox.haas.politie 
+  - route: smoketests.apps.ota.haas.politie
   memory: 32M
   disk_quota: 32M
-  buildpacks: 
+  buildpacks:
   - go_buildpack
   env:
     GOPACKAGENAME: smoketests
-    GOVERSION: go1.17
+    GOVERSION: go1.16
     DASHBOARD_DATA_ENDPOINT: https://smoketestsdashboard.apps.ota.haas.politie/api/smokestate
     ADFS_RES_URL: http://smoketests-sso-resource/adfsLogin
     UAA_RES_URL: http://smoketests-sso-resource/uaaLogin
-    TYPE: OTA 
-    SITE: Hoofdstraat 
+    TYPE: OTA
   services:
   - smoketests-db
   - smoketests-rabbitmq
