@@ -39,7 +39,8 @@ func (s *smokeTestProgram) init(env *cfenv.App) {
 	s.tests = append(s.tests,
 		meTestNew(),
 		mySQLTestNew(env),
-		rabbitMqTestNew(env),
+		rabbitMqTestNew(env, "p-rabbitmq"),
+		rabbitMqTestNew(env, "p.rabbitmq"),
 		redisTestNew(env))
 }
 

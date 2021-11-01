@@ -24,15 +24,21 @@ const (
 type rabbitMqTest struct {
         connection *amqp.Connection
         qname      string
+	rabbitMqKey string
+	rabbitMqName string
 }
 
-func rabbitMqTestNew(env *cfenv.App) SmokeTest {
+func rabbitMqTestNew(env *cfenv.App, serviceName string) SmokeTest {
         // TODO: replace with searching on tag basis, possibly resulting in multiple returns in case of multiple matches.
-        rabbitMqServices, err := env.Services.WithLabel("p-rabbitmq")
+        //rabbitMqServices, err := env.Services.WithLabel("p-rabbitmq")
+        rabbitMqServices, err := env.Services.WithLabel(serviceName)
         if err != nil {
                 fmt.Println("RabbitMQ service not bound to smoketest app.")
                 return &rabbitMqTest{}
         }
+
+	r.rabbitMqKey = serviceName
+	r.rabbitMqName = serviceName
 
         uri := rabbitMqServices[0].Credentials["uri"].(string)
 
@@ -124,7 +130,7 @@ func (r *rabbitMqTest) run() SmokeTestResult {
         err := channel.Publish("", queue.Name, false, false, msg)
         if err != nil {
                 results = append(results, SmokeTestResult{Name: rabbitMqTestPublishMessage, Result: false, Error: err.Error()})
-                return OverallResult(rabbitMqKey, rabbitMqName, results)
+                return OverallResult(r.rabbitMqKey, r.rabbitMqName, results)
         }
         results = append(results, SmokeTestResult{Name: rabbitMqTestPublishMessage, Result: true})
 
