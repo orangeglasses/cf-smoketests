@@ -18,7 +18,7 @@ applications:
     SMB_FILE: smoketestfile
   services:
   - smoketests-db
-  - smoketests-rabbitmq
+  #- smoketests-rabbitmq
   - smoketests-redis
   - autoscaler
   - smoketests-on-rabbitmq
