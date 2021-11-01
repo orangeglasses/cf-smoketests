@@ -37,9 +37,6 @@ func rabbitMqTestNew(env *cfenv.App, serviceName string) SmokeTest {
                 return &rabbitMqTest{}
         }
 
-	r.rabbitMqKey = serviceName
-	r.rabbitMqName = serviceName
-
         uri := rabbitMqServices[0].Credentials["uri"].(string)
 
         amqpConnection, err := amqp.DialTLS(uri, &tls.Config{InsecureSkipVerify: true})
@@ -51,6 +48,8 @@ func rabbitMqTestNew(env *cfenv.App, serviceName string) SmokeTest {
         return &rabbitMqTest{
                 connection: amqpConnection,
                 qname:      "smoketestsQueue",
+		rabbitMqKey: serviceName,
+		rabbitMqName: serviceName,
         }
 }
 
