@@ -34,7 +34,7 @@ func rabbitMqTestNew(env *cfenv.App, serviceName string) SmokeTest {
         rabbitMqServices, err := env.Services.WithLabel(serviceName)
         if err != nil {
                 fmt.Println("RabbitMQ service not bound to smoketest app.")
-                return &rabbitMqTest{}
+                return nil
         }
 
         uri := rabbitMqServices[0].Credentials["uri"].(string)
