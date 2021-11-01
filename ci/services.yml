@@ -3,3 +3,7 @@
   - smoketests-rabbitmq
   - smoketests-redis
   - autoscaler
+  - smoketests-on-rabbitmq
+  - smoketests-on-redis
+  - smoketests-postgres
+  - smoketests-smb
