@@ -103,7 +103,7 @@ func (r *rabbitMqTest) run() SmokeTestResult {
         }
         obj, success := RunTestPart(createPublishingChannel, rabbitMqTestCreatePublishingChannel, &results)
         if !success {
-                return OverallResult(rabbitMqKey, rabbitMqName, results)
+                return OverallResult(r.rabbitMqKey, r.rabbitMqName, results)
         }
         channel := obj.(*amqp.Channel)
         defer channel.Close()
@@ -114,7 +114,7 @@ func (r *rabbitMqTest) run() SmokeTestResult {
         }
         obj, success = RunTestPart(declareQueue, rabbitMqTestDeclareQueue, &results)
         if !success {
-                return OverallResult(rabbitMqKey, rabbitMqName, results)
+                return OverallResult(r.rabbitMqKey, r.rabbitMqName, results)
         }
         queue := obj.(amqp.Queue)
 
@@ -137,5 +137,5 @@ func (r *rabbitMqTest) run() SmokeTestResult {
                 results = append(results, listeningResult)
         }
 
-        return OverallResult(rabbitMqKey, rabbitMqName, results)
+        return OverallResult(r.rabbitMqKey, r.rabbitMqName, results)
 }
