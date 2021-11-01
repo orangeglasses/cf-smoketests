@@ -49,13 +49,15 @@ func (s *smokeTestProgram) init(env *cfenv.App) {
 
 func (s *smokeTestProgram) run() []SmokeTestResult {
 
-	results := make([]SmokeTestResult, len(s.tests), len(s.tests))
-	for index, test := range s.tests {
+//	results := make([]SmokeTestResult, len(s.tests), len(s.tests))
+	var results []SmokeTestResult
+
+	for _, test := range s.tests {
 		if test != nil {
-			results[index] = test.run()
+			results = append(results, test.run())
 		}
 	}
-	return results[:]
+	return results
 }
 
 func (s *smokeTestProgram) publish(results []SmokeTestResult) error {
