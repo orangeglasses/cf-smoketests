@@ -8,20 +8,21 @@ import (
 )
 
 const (
-	redisKey  = "redis"
-	redisName = "Redis"
 )
 
 type redisTest struct {
 	client *redis.Client
+	redisKey string
+	redisName string
+
 }
 
-func redisTestNew(env *cfenv.App) SmokeTest {
+func redisTestNew(env *cfenv.App, serviceName, friendlyName string) SmokeTest {
 	// TODO: replace with searching on tag basis, possibly resulting in multiple returns in case of multiple matches.
-	redisServices, err := env.Services.WithLabel("p-redis")
+	redisServices, err := env.Services.WithLabel(serviceName)
 	if err != nil {
 		fmt.Println(err.Error())
-		return &redisTest{}
+		return nil
 	}
 
 	creds := redisServices[0].Credentials
@@ -32,6 +33,8 @@ func redisTestNew(env *cfenv.App) SmokeTest {
 			Password: creds["password"].(string),
 			DB:       0,
 		}),
+		redisKey: serviceName,
+		redisName: friendlyName,
 	}
 }
 
@@ -43,7 +46,7 @@ func (r *redisTest) run() SmokeTestResult {
 	}
 	obj, success := RunTestPart(ping, "Ping", &results)
 	if !success {
-		return OverallResult(redisKey, redisName, results)
+		return OverallResult(r.redisKey, r.redisName, results)
 	}
 	pong := obj.(string)
 
@@ -53,5 +56,5 @@ func (r *redisTest) run() SmokeTestResult {
 		results = append(results, SmokeTestResult{Name: "Pong", Result: true})
 	}
 
-	return OverallResult(redisKey, redisName, results)
+	return OverallResult(r.redisKey, r.redisName, results)
 }

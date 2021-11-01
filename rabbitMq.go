@@ -28,7 +28,7 @@ type rabbitMqTest struct {
 	rabbitMqName string
 }
 
-func rabbitMqTestNew(env *cfenv.App, serviceName string) SmokeTest {
+func rabbitMqTestNew(env *cfenv.App, serviceName, friendlyName string) SmokeTest {
         // TODO: replace with searching on tag basis, possibly resulting in multiple returns in case of multiple matches.
         //rabbitMqServices, err := env.Services.WithLabel("p-rabbitmq")
         rabbitMqServices, err := env.Services.WithLabel(serviceName)
@@ -49,7 +49,7 @@ func rabbitMqTestNew(env *cfenv.App, serviceName string) SmokeTest {
                 connection: amqpConnection,
                 qname:      "smoketestsQueue",
 		rabbitMqKey: serviceName,
-		rabbitMqName: serviceName,
+		rabbitMqName: friendlyName,
         }
 }
 

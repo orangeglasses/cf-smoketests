@@ -21,4 +21,5 @@ applications:
   - smoketests-redis
   - autoscaler
   - smoketests-on-rabbitmq
+  - smoketests-on-redis
   stack: cflinuxfs3
