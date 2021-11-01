@@ -33,15 +33,20 @@ type postgresTest struct {
 	name string
 }
 
-func postgresTestNew(s cfenv.Service, key string, name string) SmokeTest {
+func postgresTestNew(env *cfenv.App, serviceName, friendlyName string) SmokeTest {
+	postgresServices, err := env.Services.WithLabel(serviceName)
+        if err != nil {
+                fmt.Println("Postgres service not bound to smoketest app.")
+                return nil
+        }
 
-	creds := s.Credentials
+	creds := postgresServices[0].Credentials
 	return &postgresTest{
 		host: creds["host"].(string),
 		uri:  creds["uri"].(string),
 		init: true,
-		key:  key,
-		name: name,
+		key:  serviceName,
+		name: friendlyName,
 	}
 }
 
