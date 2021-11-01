@@ -42,7 +42,7 @@ func postgresTestNew(env *cfenv.App, serviceName, friendlyName string) SmokeTest
 
 	creds := postgresServices[0].Credentials
 	return &postgresTest{
-		host: creds["host"].(string),
+		host: creds["hostname"].(string),
 		uri:  creds["uri"].(string),
 		init: true,
 		key:  serviceName,
