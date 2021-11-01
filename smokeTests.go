@@ -42,7 +42,7 @@ func (s *smokeTestProgram) init(env *cfenv.App) {
 		rabbitMqTestNew(env, "p-rabbitmq", "RabbitMQ Shared Cluster"),
 		rabbitMqTestNew(env, "p.rabbitmq", "RabbitMQ On-Demand"),
 		redisTestNew(env, "p-redis", "Redis Shared Cluster"),
-		redisTestNew(env), "p.redis", "Redis On-Demand")
+		redisTestNew(env, "p.redis", "Redis On-Demand"))
 }
 
 func (s *smokeTestProgram) run() []SmokeTestResult {
