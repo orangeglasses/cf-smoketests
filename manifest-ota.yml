@@ -15,9 +15,14 @@ applications:
     UAA_RES_URL: http://smoketests-sso-resource/uaaLogin
     TYPE: OTA
     SITE: HaaS Platform
+    SMB_FILE: smoketestfile
   services:
   - smoketests-db
   - smoketests-rabbitmq
   - smoketests-redis
   - autoscaler
+  - smoketests-on-rabbitmq
+  - smoketests-on-redis
+  - smoketests-postgres
+  - smoketests-smb
   stack: cflinuxfs3
