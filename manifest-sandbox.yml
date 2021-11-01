@@ -23,4 +23,5 @@ applications:
   - smoketests-on-rabbitmq
   - smoketests-on-redis
   - smoketests-postgres
+  - smoketests-smb
   stack: cflinuxfs3

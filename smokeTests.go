@@ -43,7 +43,8 @@ func (s *smokeTestProgram) init(env *cfenv.App) {
 		rabbitMqTestNew(env, "p.rabbitmq", "RabbitMQ On-Demand"),
 		redisTestNew(env, "p-redis", "Redis Shared Cluster"),
 		redisTestNew(env, "p.redis", "Redis On-Demand"),
-		postgresTestNew(env, "postgres-db", "Postgres"))
+		postgresTestNew(env, "postgres-db", "Postgres"),
+	        smbTestNew(env, "shared-volume", "shared SMB Volume (netApp)"))
 }
 
 func (s *smokeTestProgram) run() []SmokeTestResult {

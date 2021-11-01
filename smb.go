@@ -15,13 +15,20 @@ type smbTest struct {
 	name string
 }
 
-func smbTestNew(s cfenv.Service, key string, name string) SmokeTest {
-	mount := s.VolumeMounts[0]
+func smbTestNew(env *cfenv.App, serviceName, friendlyName string) SmokeTest {
+        smbServices, err := env.Services.WithLabel(serviceName)
+        if err != nil {
+                fmt.Println("smb service not bound to smoketest app.")
+                return nil
+        }
+
+
+	mount := smbServices[0].VolumeMounts[0]
 
 	return &smbTest{
 		path: mount["container_dir"],
-		key: key,
-		name: name,
+		key: serviceName,
+		name: friendlyName,
 	}
 }
 
