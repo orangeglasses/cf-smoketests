@@ -55,6 +55,12 @@ jobs:
         manifest: manifest-((foundation)).yml
     - task: clean-up-buildpack-cache
       file: resource-git-smoketests/ci/clean-up.yml
+      params:
+        api: https://api.sys.((foundation)).haas.politie
+        username: ((cf-user))
+        password: ((cf-password))
+        organization: ((cf-org))
+        space: ((cf-space))
 
 - name: run-tests
   build_logs_to_retain: 100
