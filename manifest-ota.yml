@@ -4,7 +4,7 @@ applications:
   routes:
   - route: smoketests.apps.ota.haas.politie
   memory: 32M
-  disk_quota: 32M
+  disk_quota: 512M
   buildpacks:
   - go_buildpack
   env:
