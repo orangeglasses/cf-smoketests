@@ -53,7 +53,7 @@ func (s *smokeTestProgram) run() []SmokeTestResult {
 			results[index] = test.run()
 		}
 	}
-	return results[:]
+	return results
 }
 
 func (s *smokeTestProgram) publish(results []SmokeTestResult) error {

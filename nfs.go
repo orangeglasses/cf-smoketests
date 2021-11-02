@@ -17,7 +17,7 @@ func nfsTestNew(env *cfenv.App) SmokeTest {
 	nfsServices, err := env.Services.WithTag("nfs")
 	if err != nil {
 		fmt.Println(err.Error())
-		return &nfsTest{}
+		return nil
 	}
 	mount := nfsServices[0].VolumeMounts[0]
 

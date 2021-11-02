@@ -37,7 +37,7 @@ func mySQLTestNew(env *cfenv.App) SmokeTest {
 	// TODO: replace with searching on tag basis, possibly resulting in multiple returns in case of multiple matches.
 	mySQLServices, err := env.Services.WithLabel("p.mySQL")
 	if err != nil {
-		return &mySQLTest{"", 0.0, "", "", ""}
+		return nil
 	}
 
 	creds := mySQLServices[0].Credentials

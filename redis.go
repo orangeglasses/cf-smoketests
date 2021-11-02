@@ -21,7 +21,7 @@ func redisTestNew(env *cfenv.App) SmokeTest {
 	redisServices, err := env.Services.WithLabel("p-redis")
 	if err != nil {
 		fmt.Println(err.Error())
-		return &redisTest{}
+		return nil
 	}
 
 	creds := redisServices[0].Credentials
