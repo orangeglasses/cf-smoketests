@@ -47,7 +47,7 @@ func s3TestNew(env *cfenv.App) SmokeTest {
 	}
 
 	creds := s3Services[0].Credentials
-	bucketMap := creds["buckets"].([]map[string]interface{})[0]
+	bucketMap := creds["buckets"].([]interface{})[0].(map[string]interface{})
 
 	tr := &http.Transport{
 		TLSClientConfig: &tls.Config{InsecureSkipVerify: false},
