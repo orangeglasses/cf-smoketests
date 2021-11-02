@@ -2,6 +2,10 @@
 
 # this command purge all the buildpack cache - every smoketest run!!
 
+# set tracing env var to true for more verbosity
+export CF_TRACE=true
+export CF_TRACE=./trace.log
+
 # Main function
 
 if $insecure; then
