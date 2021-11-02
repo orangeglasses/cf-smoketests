@@ -47,7 +47,7 @@ func (s *smokeTestProgram) init(env *cfenv.App) {
 
 func (s *smokeTestProgram) run() []SmokeTestResult {
 
-	results := make([]SmokeTestResult, len(s.tests), len(s.tests))
+	var results []SmokeTestResult
 	for index, test := range s.tests {
 		if test != nil {
 			results[index] = test.run()
