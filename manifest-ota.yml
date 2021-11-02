@@ -22,7 +22,7 @@ applications:
   - smoketests-redis
   - autoscaler
   - smoketests-on-rabbitmq
-  - smoketests-on-redis
+  #- smoketests-on-redis
   - smoketests-postgres
   - smoketests-smb
   stack: cflinuxfs3
