@@ -12,12 +12,6 @@ else
 cf login -a $api -u $username -p $password -o $organization -s $space
 fi
 
-tempManifest="tempmanifest.yml"
 cd ./resource-git-smoketests/ &&\
-cat $manifest > $tempManifest &&\
-cat $services >> $tempManifest &&\
-cf push -f $tempManifest
-
-# eval "cat ../trace.log; exit $?"
-
+cf push -f $manifest
 
