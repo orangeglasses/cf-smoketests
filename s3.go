@@ -114,5 +114,5 @@ func (t *s3Test) run() SmokeTestResult {
 
 	RunTestPart(write, "Create local testfile", &results)
 	RunTestPart(upload, "Upload file to S3", &results)
-	return OverallResult("nfs", "NFS", results)
+	return OverallResult("s3", "S3", results)
 }
