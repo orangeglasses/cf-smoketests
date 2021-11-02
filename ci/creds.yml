@@ -1,0 +1,7 @@
+git-uri-smoketests: https://gitlab.unix.int.politie/haas/cf-smoketests.git 
+git-private-key: ((gitlab_token)) 
+cf-user: ((svc_platform-team.username)) 
+cf-password: ((svc_platform-team.password))
+cf-org: platformteam
+cf-space: smoketest   
+api-token: ((pivnet_token))
