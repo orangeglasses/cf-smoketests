@@ -47,7 +47,7 @@ func s3TestNew(env *cfenv.App) SmokeTest {
 	}
 
 	creds := s3Services[0].Credentials
-	bucketMap := creds["buckets"].([]map[string]interface{})[0]
+	bucketMap := creds["buckets"].([]interface{})[0].(map[string]interface{})
 
 	tr := &http.Transport{
 		TLSClientConfig: &tls.Config{InsecureSkipVerify: false},
@@ -109,10 +109,15 @@ func (t *s3Test) run() SmokeTestResult {
 			ContentLength:      aws.Int64(int64(len(fileBuffer))),
 			ContentType:        aws.String(http.DetectContentType(fileBuffer)),
 		})
+
+		if err != nil {
+			return false, err
+		}
+
 		return true, nil
 	}
 
 	RunTestPart(write, "Create local testfile", &results)
 	RunTestPart(upload, "Upload file to S3", &results)
-	return OverallResult("nfs", "NFS", results)
+	return OverallResult("s3", "S3", results)
 }
