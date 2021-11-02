@@ -3,6 +3,7 @@ module github.com/orangeglasses/cf-smoketests
 go 1.16
 
 require (
+	github.com/aws/aws-sdk-go v1.41.15
 	github.com/cloudfoundry-community/go-cfenv v1.18.0
 	github.com/go-redis/redis v6.15.9+incompatible
 	github.com/go-sql-driver/mysql v1.6.0

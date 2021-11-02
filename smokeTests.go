@@ -44,7 +44,8 @@ func (s *smokeTestProgram) init(env *cfenv.App) {
 		redisTestNew(env, "p-redis", "Redis Shared Cluster"),
 		redisTestNew(env, "p.redis", "Redis On-Demand"),
 		postgresTestNew(env, "postgres-db", "Postgres"),
-	        smbTestNew(env, "shared-volume", "shared SMB Volume (netApp)"))
+	        smbTestNew(env, "shared-volume", "shared SMB Volume (netApp)"),
+	        s3TestNew(env))
 }
 
 func (s *smokeTestProgram) run() []SmokeTestResult {
