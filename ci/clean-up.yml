@@ -15,9 +15,3 @@ inputs:
 run:
    path: resource-git-smoketests/ci/clean-up.sh
 
-params:
-  api:
-  space:
-  organization:
-  username:
-  password:
