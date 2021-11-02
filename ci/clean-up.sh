@@ -4,6 +4,10 @@
 
 # Main function
 
-cf login -a $api -u $username -p $password -o platformteam -s smoketest --skip-ssl-validation
+if $insecure; then
+cf login -a $api -u $username -p $password -o $organization -s $space --skip-ssl-validation
+else
+cf login -a $api -u $username -p $password -o $organization -s $space
+fi
 
 cf curl -v -X DELETE /v2/blobstores/buildpack_cache
