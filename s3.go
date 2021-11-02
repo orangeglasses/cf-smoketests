@@ -109,6 +109,10 @@ func (t *s3Test) run() SmokeTestResult {
 			ContentLength:      aws.Int64(int64(len(fileBuffer))),
 			ContentType:        aws.String(http.DetectContentType(fileBuffer)),
 		})
+
+		if err != nil { 
+	          return false, err
+		}
 		return true, nil
 	}
 
