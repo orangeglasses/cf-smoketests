@@ -1,0 +1,81 @@
+groups:
+- name: smoketests-pipeline
+  jobs:
+  - push-smoketest-app
+  - run-tests
+  
+resource_types:
+- name: pivnet
+  type: docker-image
+  source:
+    repository: harbor.cp.haas.politie:443/library/pivnet-resource
+    tag: latest
+    insecure_registries:
+    - harbor.cp.haas.politie:443
+      
+resources:
+- name: resource-git-smoketests
+  type: git
+  source:
+    uri: ((git-uri-smoketests))
+    username: ((cf-smoketest-git-token.username))
+    password: ((cf-smoketest-git-token.password))
+    branch: master
+    
+- name: pcf-app-autoscaler
+  type: pivnet
+  tags: [ "internet" ]
+  source:
+    api_token: ((api-token))
+    product_slug: pcf-app-autoscaler
+
+- name: time-trigger
+  type: time
+  source:
+    interval: 5m
+
+jobs:
+- name: push-smoketest-app
+  build_logs_to_retain: 100
+  public: false
+  serial: true
+  plan:
+    - get: time-trigger
+      trigger: true
+    - get: resource-git-smoketests
+      trigger: true
+    - task: task-deploy
+      file: resource-git-smoketests/ci/deploy.yml
+      params:
+        api: https://api.sys.((foundation)).haas.politie
+        username: ((cf-user))
+        password: ((cf-password))
+        organization: ((cf-org))
+        space: ((cf-space))
+        manifest: manifest-((foundation)).yml
+    - task: clean-up-buildpack-cache
+      file: resource-git-smoketests/ci/clean-up.yml
+
+- name: run-tests
+  build_logs_to_retain: 100
+  public: false
+  serial: true
+  plan:
+  - get: resource-git-smoketests
+  - get: pcf-app-autoscaler
+    tags: [ "internet" ]
+  - get: time-trigger
+    trigger: true
+    passed: [ push-smoketest-app ]
+  - task: testscript
+    file: resource-git-smoketests/ci/tests.yml
+    params:
+      CHECK_URL: https://smoketests.apps.((foundation)).haas.politie/v1/status
+  - task: scaletest
+    file: resource-git-smoketests/ci/scale.yml
+    params:
+      api: https://api.sys.((foundation)).haas.politie
+      username: ((cf-user))
+      password: ((cf-password))
+      organization: ((cf-org))
+      space: ((cf-space))
