@@ -25,4 +25,5 @@ applications:
   - smoketests-on-redis
   - smoketests-postgres
   - smoketests-smb
+  - smoketests-s3
   stack: cflinuxfs3
