@@ -16,6 +16,7 @@ resource_types:
 resources:
 - name: resource-git-smoketests
   type: git
+  icon: gitlab
   source:
     uri: ((git-uri-smoketests))
     username: ((cf-smoketest-git-token.username))
@@ -24,6 +25,7 @@ resources:
     
 - name: pcf-app-autoscaler
   type: pivnet
+  icon: file-powerpoint
   tags: [ "internet" ]
   source:
     api_token: ((api-token))
@@ -31,6 +33,7 @@ resources:
 
 - name: time-trigger
   type: time
+  icon: clock-outline
   source:
     interval: 5m
 
