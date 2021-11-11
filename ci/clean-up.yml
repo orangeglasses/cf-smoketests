@@ -4,14 +4,12 @@ platform: linux
 image_resource:
   type: docker-image
   source:
-    repository: harbor.sandbox.haas.politie:443/platform-team/cf_tools
-    tag: latest
+    repository: harbor.cp.haas.politie:443/library/pcf-ops
     insecure_registries:
-    - harbor.sandbox.haas.politie:443
+    - harbor.cp.haas.politie:443
 
 inputs:
 - name: resource-git-smoketests
 
 run:
    path: resource-git-smoketests/ci/clean-up.sh
-
