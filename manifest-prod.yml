@@ -9,7 +9,7 @@ applications:
   - go_buildpack
   env:
     GOPACKAGENAME: smoketests
-    GOVERSION: go1.16
+    GOVERSION: go1.17
     DASHBOARD_DATA_ENDPOINT: https://smoketestsdashboard.apps.prod.haas.politie/api/smokestate
     ADFS_RES_URL: http://smoketests-sso-resource/adfsLogin
     UAA_RES_URL: http://smoketests-sso-resource/uaaLogin
