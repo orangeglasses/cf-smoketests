@@ -40,7 +40,7 @@ type s3Test struct {
 }
 
 func s3TestNew(env *cfenv.App) SmokeTest {
-	s3Services, err := env.Services.WithTag("s3-bucket")
+	s3Services, err := env.Services.WithLabel("s3-bucket")
 	if err != nil {
 		fmt.Println("smoketest app not bound to an s3 service")
 		return nil
@@ -110,10 +110,9 @@ func (t *s3Test) run() SmokeTestResult {
 			ContentType:        aws.String(http.DetectContentType(fileBuffer)),
 		})
 
-		if err != nil {
-			return false, err
+		if err != nil { 
+	          return false, err
 		}
-
 		return true, nil
 	}
 

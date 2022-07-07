@@ -39,18 +39,23 @@ func (s *smokeTestProgram) init(env *cfenv.App) {
 	s.tests = append(s.tests,
 		meTestNew(),
 		mySQLTestNew(env),
-		ssoTestNew(env),
-		rabbitMqTestNew(env),
-		redisTestNew(env),
-		nfsTestNew(env))
+		rabbitMqTestNew(env, "p-rabbitmq", "RabbitMQ Shared Cluster"),
+		rabbitMqTestNew(env, "p.rabbitmq", "RabbitMQ On-Demand"),
+		redisTestNew(env, "p-redis", "Redis Shared Cluster"),
+		redisTestNew(env, "p.redis", "Redis On-Demand"),
+		postgresTestNew(env, "postgres-db", "Postgres"),
+	        smbTestNew(env, "shared-volume", "shared SMB Volume (netApp)"),
+	        s3TestNew(env))
 }
 
 func (s *smokeTestProgram) run() []SmokeTestResult {
 
+//	results := make([]SmokeTestResult, len(s.tests), len(s.tests))
 	var results []SmokeTestResult
-	for index, test := range s.tests {
+
+	for _, test := range s.tests {
 		if test != nil {
-			results[index] = test.run()
+			results = append(results, test.run())
 		}
 	}
 	return results
