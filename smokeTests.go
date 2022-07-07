@@ -44,13 +44,16 @@ func (s *smokeTestProgram) init(env *cfenv.App) {
 		redisTestNew(env, "p-redis", "Redis Shared Cluster"),
 		redisTestNew(env, "p.redis", "Redis On-Demand"),
 		postgresTestNew(env, "postgres-db", "Postgres"),
-	        smbTestNew(env, "shared-volume", "shared SMB Volume (netApp)"),
-	        s3TestNew(env))
+		smbTestNew(env, "shared-volume", "shared SMB Volume (netApp)"),
+		s3TestNew(env),
+		k8sTestNew(),
+	)
+
 }
 
 func (s *smokeTestProgram) run() []SmokeTestResult {
 
-//	results := make([]SmokeTestResult, len(s.tests), len(s.tests))
+	//	results := make([]SmokeTestResult, len(s.tests), len(s.tests))
 	var results []SmokeTestResult
 
 	for _, test := range s.tests {
