@@ -1,19 +1,18 @@
 applications:
 - name: smoketests
   instances: 1
+  routes:
+  - route: ((route))
   memory: 32M
   disk_quota: 32M
   buildpacks: 
   - go_buildpack
   env:
     GOPACKAGENAME: smoketests
-    DASHBOARD_DATA_ENDPOINT: http://smoketestsdashboard/api/smokestate
-    ADFS_RES_URL: http://smoketests-sso-resource/adfsLogin
-    UAA_RES_URL: http://smoketests-sso-resource/uaaLogin
-  services:
-  - smoketests-db
-  - smoketests-sso-uaa
-  - smoketests-rabbitmq
-  - smoketests-redis
-  - smoketests-nfs
-  - autoscaler
+    DASHBOARD_DATA_ENDPOINT: http://((dashboard-fqdn))/api/smokestate
+    ADFS_RES_URL: http://((sso-resource-fqdn))/adfsLogin
+    UAA_RES_URL: http://((sso-resource-fqdn))/uaaLogin
+    TYPE: ((type))
+    SITE: ((site))
+    SMB_FILE: ((smb-file))
+  services: ((services))
