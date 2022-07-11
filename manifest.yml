@@ -6,7 +6,7 @@ applications:
   - go_buildpack
   env:
     GOPACKAGENAME: smoketests
-    DASHBOARD_DATA_ENDPOINT: http://((dashboard-fqdn))/api/smokestate
+    DASHBOARD_DATA_ENDPOINT: https://((dashboard-fqdn))/api/smokestate
     #ADFS_RES_URL: ((adfs-resource-url)) #http://((sso-resource-fqdn))/adfsLogin
     #UAA_RES_URL: ((uaa-resource-url)) #http://((sso-resource-fqdn))/uaaLogin
     TYPE: ((type))
