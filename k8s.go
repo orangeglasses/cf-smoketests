@@ -53,10 +53,16 @@ func (k *k8sTest) run() SmokeTestResult {
 
 	var results []SmokeTestResult
 
-	err := k.CreateDeployment(context.Background())
-	fmt.Println(err)
+	createDeployment := func() (interface{}, error) {
+		err := k.CreateDeployment(context.Background())
+		fmt.Println(err)
+		if err != nil {
+			return nil, err
+		}
+		return true, nil
+	}
 
-	results = append(results, SmokeTestResult{Name: "Pong", Result: false, Error: "No PONG reply from Redis"})
+	RunTestPart(createDeployment, "Create Deployment", &results)
 
 	return OverallResult(k8sKey, k8sName, results)
 }
