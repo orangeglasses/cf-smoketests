@@ -54,22 +54,17 @@ func (k *k8sTest) run() SmokeTestResult {
 
 	var results []SmokeTestResult
 
-	createDeployment := func() (interface{}, error) {
-		err := k.CreateDeployment(context.Background())
-		fmt.Println(err)
-		if err != nil {
-			return nil, err
-		}
-		return true, nil
-	}
-
-	RunTestPart(createDeployment, "Create Deployment", &results)
+	RunTestPart(k.CreateDeployment, "Create Deployment", &results)
+	//test connection to test deploy here
+	RunTestPart(k.DeleteDeployment, "Delete Deployment", &results)
 
 	return OverallResult(k8sKey, k8sName, results)
 }
 
 // CreateDeployment creates a dummy nginx deployment of 2 pods
-func (k *k8sTest) CreateDeployment(ctx context.Context) error {
+func (k *k8sTest) CreateDeployment() (interface{}, error) {
+	ctx := context.Background()
+
 	numReplicas := int32(2)
 
 	deployment := &appsv1.Deployment{
@@ -112,21 +107,22 @@ func (k *k8sTest) CreateDeployment(ctx context.Context) error {
 
 	_, err := k.client.AppsV1().Deployments(k.namespace).Create(ctx, deployment, metav1.CreateOptions{})
 	if err != nil {
-		return fmt.Errorf("Failed to create deployment: %v", err)
+		return nil, fmt.Errorf("Failed to create deployment: %v", err)
 	}
 
 	if err = k.WaitFor(ctx, k.client, Deployment, WithNumReady(numReplicas)); err != nil {
-		return fmt.Errorf("Failed to create deployment: %v", err)
+		return nil, fmt.Errorf("Failed to create deployment: %v", err)
 	}
 
-	return nil
+	return true, nil
 }
 
 // DeleteDeployment deletes the deployment ..
-func (k *k8sTest) DeleteDeployment(ctx context.Context, client *kubernetes.Clientset) error {
-	if err := client.AppsV1().Deployments(k.namespace).Delete(ctx, "smoketest", metav1.DeleteOptions{}); err != nil {
-		return fmt.Errorf("failed to delete deployment: %v", err)
+func (k *k8sTest) DeleteDeployment() (interface{}, error) {
+	ctx := context.Background()
+	if err := k.client.AppsV1().Deployments(k.namespace).Delete(ctx, "smoketest", metav1.DeleteOptions{}); err != nil {
+		return nil, fmt.Errorf("failed to delete deployment: %v", err)
 	}
 
-	return nil
+	return true, nil
 }
