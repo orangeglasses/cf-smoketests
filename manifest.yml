@@ -13,7 +13,7 @@ applications:
     SITE: ((site))
     SMB_FILE: ((smb-file))
     KUBECONFIG_PATH: ((kubeconfig-path))
-    K8S_TESTIMAGE: ((k8s-testimge))
+    K8S_TESTIMAGE: ((k8s-testimage))
   processes:
   - type: web
     instances: 1
