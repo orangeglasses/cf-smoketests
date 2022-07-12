@@ -14,6 +14,7 @@ applications:
     SMB_FILE: ((smb-file))
     KUBECONFIG_PATH: ((kubeconfig-path))
     K8S_TESTIMAGE: ((k8s-testimage))
+    K8S_IMG_PULL_SECRET: ((k8s-img-pull-secret))
   processes:
   - type: web
     instances: 1

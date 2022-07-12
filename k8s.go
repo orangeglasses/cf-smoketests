@@ -94,12 +94,10 @@ func (k *k8sTest) CreateDeployment() (interface{}, error) {
 					},
 				},
 				Spec: corev1.PodSpec{
-					Containers: []corev1.Container{
-						{
-							Image: k.testImage,
-							Name:  "webserver",
-						},
-					},
+//					Volumes:                       []corev1.Volume{},					
+					Containers:                    []corev1.Container{Image: k.testImage, Name: "webserver"},					
+					ImagePullSecrets:              []corev1.LocalObjectReference{Name: os.Getenv("K8S_IMG_PULL_SECRET")},					
+				},
 				},
 			},
 		},
