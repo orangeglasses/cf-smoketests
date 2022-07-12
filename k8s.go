@@ -46,6 +46,7 @@ func k8sTestNew() SmokeTest {
 	return &k8sTest{
 		client:    cs,
 		namespace: "smoketest",
+		testImage: os.Getenv("K8S_TESTIMAGE"),
 	}
 }
 
