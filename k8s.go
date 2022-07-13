@@ -146,7 +146,7 @@ func (k *k8sTest) CreateIngress() (interface{}, error) {
 		return true, nil
 	}
 
-	//pathType := networkingV1.PathType("Prefix")
+	pathType := networkingV1.PathType("Prefix")
 
 	ingress := networkingV1.Ingress{
 		TypeMeta: metav1.TypeMeta{
@@ -163,8 +163,8 @@ func (k *k8sTest) CreateIngress() (interface{}, error) {
 					IngressRuleValue: networkingV1.IngressRuleValue{
 						HTTP: &networkingV1.HTTPIngressRuleValue{
 							Paths: []networkingV1.HTTPIngressPath{{
-								Path: "/",
-								//PathType: &pathType,
+								Path:     "/",
+								PathType: &pathType,
 								Backend: networkingV1.IngressBackend{
 									Service: &networkingV1.IngressServiceBackend{
 										Name: "smoketest-svc",
