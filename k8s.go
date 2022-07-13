@@ -140,7 +140,7 @@ func (k *k8sTest) CreateIngress() (interface{}, error) {
 	log.Println("Creating k8s ingress")
 	ctx := context.Background()
 
-	host1 := os.Getenv("K8S_ING_HOST_1")
+	host1 := os.Getenv("K8S_ING_HOST1")
 
 	if host1 == "" {
 		return true, nil
