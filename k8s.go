@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"time"
 
 	appsv1 "k8s.io/api/apps/v1"
 	corev1 "k8s.io/api/core/v1"
@@ -59,6 +60,9 @@ func (k *k8sTest) run() SmokeTestResult {
 	RunTestPart(k.CreateService, "Create Service", &results)
 	RunTestPart(k.CreateIngress, "Create Ingress", &results)
 	//TODO: test connection to test deploy here
+	//sleep for now :(
+
+	time.Sleep(2 * time.Second)
 	RunTestPart(k.DeleteIngress, "Delete Ingress", &results)
 	RunTestPart(k.DeleteService, "Delete Service", &results)
 	RunTestPart(k.DeleteDeployment, "Delete Deployment", &results)
@@ -113,7 +117,7 @@ func (k *k8sTest) CreateDeployment() (interface{}, error) {
 	}
 
 	if err = k.WaitFor(ctx, k.client, Deployment, WithNumReady(numReplicas)); err != nil {
-		return nil, fmt.Errorf("Failed to create deployment: %v", err)
+		return nil, fmt.Errorf("Failed waiting for deployment to be created: %v", err)
 	}
 
 	return true, nil
