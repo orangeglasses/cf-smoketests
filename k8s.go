@@ -237,7 +237,7 @@ func (k *k8sTest) TestReachable() (interface{}, error) {
 	log.Println("Testing connection to deployment")
 	var status int
 	for retries := 12; retries > 0 && status != 200; retries-- {
-		r, err := http.Get(os.Getenv("K8S_ING_HOST1"))
+		r, err := http.Get("https://" + os.Getenv("K8S_ING_HOST1"))
 		if err != nil {
 			return nil, err
 		}
