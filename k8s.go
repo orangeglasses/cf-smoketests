@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"crypto/tls"
 	"fmt"
 	"log"
 	"net/http"
@@ -236,8 +237,14 @@ func (k *k8sTest) DeleteService() (interface{}, error) {
 func (k *k8sTest) TestReachable() (interface{}, error) {
 	log.Println("Testing connection to deployment")
 	var status int
+
+	tr := &http.Transport{
+		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+	}
+	httpClient := &http.Client{Transport: tr}
+
 	for retries := 12; retries > 0 && status != 200; retries-- {
-		r, err := http.Get("https://" + os.Getenv("K8S_ING_HOST1"))
+		r, err := httpClient.Get("https://" + os.Getenv("K8S_ING_HOST1"))
 		if err != nil {
 			return nil, err
 		}
