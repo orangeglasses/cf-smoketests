@@ -150,8 +150,8 @@ func (k *k8sTest) CreateIngress() (interface{}, error) {
 
 	ingress := networkingV1.Ingress{
 		TypeMeta: metav1.TypeMeta{
-			Kind:       "networking.k8s.io/v1",
-			APIVersion: "Ingress",
+			Kind:       "Ingress",
+			APIVersion: "networking.k8s.io/v1",
 		},
 		ObjectMeta: metav1.ObjectMeta{
 			Name: "smoketest-ingress",
