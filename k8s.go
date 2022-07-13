@@ -192,7 +192,7 @@ func (k *k8sTest) CreateIngress() (interface{}, error) {
 func (k *k8sTest) DeleteIngress() (interface{}, error) {
 	log.Println("Deleting k8s ingress")
 	ctx := context.Background()
-	if err := k.client.AppsV1().Deployments(k.namespace).Delete(ctx, "smoketest", metav1.DeleteOptions{}); err != nil {
+	if err := k.client.NetworkingV1().Ingresses(k.namespace).Delete(ctx, "smoketest", metav1.DeleteOptions{}); err != nil {
 		return nil, fmt.Errorf("failed to delete ingress: %v", err)
 	}
 
@@ -223,7 +223,7 @@ func (k *k8sTest) CreateService() (interface{}, error) {
 }
 
 func (k *k8sTest) DeleteService() (interface{}, error) {
-	fmt.Println("Deleting k8s service")
+	log.Println("Deleting k8s service")
 	ctx := context.Background()
 	if err := k.client.CoreV1().Services(k.namespace).Delete(ctx, "smoketest-svc", metav1.DeleteOptions{}); err != nil {
 		return nil, fmt.Errorf("failed to delete service: %v", err)
