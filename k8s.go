@@ -72,6 +72,7 @@ func (k *k8sTest) run() SmokeTestResult {
 
 // CreateDeployment creates a dummy nginx deployment of 2 pods
 func (k *k8sTest) CreateDeployment() (interface{}, error) {
+	log.Println("Creating k8s deployment")
 	ctx := context.Background()
 
 	numReplicas := int32(2)
@@ -125,8 +126,10 @@ func (k *k8sTest) CreateDeployment() (interface{}, error) {
 
 // DeleteDeployment deletes the deployment ..
 func (k *k8sTest) DeleteDeployment() (interface{}, error) {
+	log.Println("Deleting k8s deployment")
 	ctx := context.Background()
 	if err := k.client.AppsV1().Deployments(k.namespace).Delete(ctx, "smoketest", metav1.DeleteOptions{}); err != nil {
+		log.Println(err)
 		return nil, fmt.Errorf("failed to delete deployment: %v", err)
 	}
 
@@ -134,6 +137,7 @@ func (k *k8sTest) DeleteDeployment() (interface{}, error) {
 }
 
 func (k *k8sTest) CreateIngress() (interface{}, error) {
+	log.Println("Creating k8s ingress")
 	ctx := context.Background()
 
 	host1 := os.Getenv("K8S_ING_HOST_1")
@@ -177,6 +181,7 @@ func (k *k8sTest) CreateIngress() (interface{}, error) {
 
 	_, err := k.client.NetworkingV1().Ingresses(k.namespace).Create(ctx, &ingress, metav1.CreateOptions{})
 	if err != nil {
+		log.Println(err)
 		return nil, err
 	}
 
@@ -185,6 +190,7 @@ func (k *k8sTest) CreateIngress() (interface{}, error) {
 
 // DeleteDeployment deletes the deployment ..
 func (k *k8sTest) DeleteIngress() (interface{}, error) {
+	log.Println("Deleting k8s ingress")
 	ctx := context.Background()
 	if err := k.client.AppsV1().Deployments(k.namespace).Delete(ctx, "smoketest", metav1.DeleteOptions{}); err != nil {
 		return nil, fmt.Errorf("failed to delete ingress: %v", err)
@@ -194,6 +200,7 @@ func (k *k8sTest) DeleteIngress() (interface{}, error) {
 }
 
 func (k *k8sTest) CreateService() (interface{}, error) {
+	log.Println("Creating k8s service")
 	ctx := context.Background()
 
 	service := corev1.Service{
@@ -216,6 +223,7 @@ func (k *k8sTest) CreateService() (interface{}, error) {
 }
 
 func (k *k8sTest) DeleteService() (interface{}, error) {
+	fmt.Println("Deleting k8s service")
 	ctx := context.Background()
 	if err := k.client.CoreV1().Services(k.namespace).Delete(ctx, "smoketest-svc", metav1.DeleteOptions{}); err != nil {
 		return nil, fmt.Errorf("failed to delete service: %v", err)
