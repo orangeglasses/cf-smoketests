@@ -62,7 +62,7 @@ func (k *k8sTest) run() SmokeTestResult {
 	//TODO: test connection to test deploy here
 	//sleep for now :(
 
-	time.Sleep(2 * time.Second)
+	time.Sleep(5 * time.Second)
 	RunTestPart(k.DeleteIngress, "Delete Ingress", &results)
 	RunTestPart(k.DeleteService, "Delete Service", &results)
 	RunTestPart(k.DeleteDeployment, "Delete Deployment", &results)
