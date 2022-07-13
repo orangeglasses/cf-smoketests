@@ -243,7 +243,7 @@ func (k *k8sTest) TestReachable() (interface{}, error) {
 	}
 	httpClient := &http.Client{Transport: tr}
 
-	for retries := 12; retries > 0 && status != 200; retries-- {
+	for retries := 16; retries > 0 && status != 200; retries-- {
 		r, err := httpClient.Get("https://" + os.Getenv("K8S_ING_HOST1"))
 		if err != nil {
 			return nil, err
