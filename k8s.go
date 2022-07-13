@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"log"
+	"net/http"
 	"os"
 	"time"
 
@@ -62,7 +63,7 @@ func (k *k8sTest) run() SmokeTestResult {
 	//TODO: test connection to test deploy here
 	//sleep for now :(
 
-	time.Sleep(5 * time.Second)
+	RunTestPart(k.TestReachable, "Test Connection", &results)
 	RunTestPart(k.DeleteIngress, "Delete Ingress", &results)
 	RunTestPart(k.DeleteService, "Delete Service", &results)
 	RunTestPart(k.DeleteDeployment, "Delete Deployment", &results)
@@ -227,6 +228,26 @@ func (k *k8sTest) DeleteService() (interface{}, error) {
 	ctx := context.Background()
 	if err := k.client.CoreV1().Services(k.namespace).Delete(ctx, "smoketest-svc", metav1.DeleteOptions{}); err != nil {
 		return nil, fmt.Errorf("failed to delete service: %v", err)
+	}
+
+	return true, nil
+}
+
+func (k *k8sTest) TestReachable() (interface{}, error) {
+	log.Println("Testing connection to deployment")
+	var status int
+	for retries := 12; retries > 0 && status != 200; retries-- {
+		r, err := http.Get(os.Getenv("K8S_ING_HOST1"))
+		if err != nil {
+			return nil, err
+		}
+
+		status = r.StatusCode
+		time.Sleep(250 * time.Millisecond)
+	}
+
+	if status != 200 {
+		return nil, fmt.Errorf("failed to reach test deployment")
 	}
 
 	return true, nil
