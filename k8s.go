@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"strings"
 	"time"
 
 	appsv1 "k8s.io/api/apps/v1"
@@ -138,7 +137,7 @@ func (k *k8sTest) CreateIngresses() (interface{}, error) {
 	var errs []error
 
 	for i, hostname := range k.config.K8sIngHosts {
-		err := k.CreateIngress(hostname, k.config.K8sIngHostsTlsSecret[i], k.config.K8sIngHostsAnnotation[i])
+		err := k.CreateIngress(hostname, k.config.K8sIngHostsTlsSecret[i], k.config.K8sIngHostsClass[i])
 		if err != nil {
 			errs = append(errs, err)
 		}
@@ -168,7 +167,7 @@ func (k *k8sTest) DeleteIngresses() (interface{}, error) {
 	return true, nil
 }
 
-func (k *k8sTest) CreateIngress(hostname string, tlsSecret string, annotation string) error {
+func (k *k8sTest) CreateIngress(hostname string, tlsSecret string, ingressClass string) error {
 	log.Println("Creating k8s ingress")
 	ctx := context.Background()
 
@@ -205,12 +204,11 @@ func (k *k8sTest) CreateIngress(hostname string, tlsSecret string, annotation st
 		},
 	}
 
-	if annotation != "" && annotation != "-" {
-		parsedAnnotation := make(map[string]string)
-		splitAnnotation := strings.Split(annotation, ":")
-		parsedAnnotation[splitAnnotation[0]] = splitAnnotation[1]
+	if ingressClass != "" && ingressClass != "-" {
+		ingress.ObjectMeta.Annotations = map[string]string{
+			"kubernetes.io/ingress.class": ingressClass,
+		}
 
-		ingress.ObjectMeta.Annotations = parsedAnnotation
 	}
 
 	_, err := k.client.NetworkingV1().Ingresses(k.config.K8sNamespace).Create(ctx, &ingress, metav1.CreateOptions{})
