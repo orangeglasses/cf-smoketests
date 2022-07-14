@@ -138,7 +138,7 @@ func (k *k8sTest) WaitFor(ctx context.Context, client *kubernetes.Clientset, res
 
 		switch resource {
 		case Namespace:
-			ns, err := client.CoreV1().Namespaces().Get(ctx, k.namespace, metav1.GetOptions{})
+			ns, err := client.CoreV1().Namespaces().Get(ctx, k.config.K8sNamespace, metav1.GetOptions{})
 			if err != nil {
 				continue
 			}
@@ -146,7 +146,7 @@ func (k *k8sTest) WaitFor(ctx context.Context, client *kubernetes.Clientset, res
 				return nil
 			}
 		case Deployment:
-			deployment, err := client.AppsV1().Deployments(k.namespace).Get(ctx, "smoketest", metav1.GetOptions{})
+			deployment, err := client.AppsV1().Deployments(k.config.K8sNamespace).Get(ctx, "smoketest", metav1.GetOptions{})
 			if err != nil {
 				continue
 			}
@@ -163,7 +163,7 @@ func (k *k8sTest) WaitFor(ctx context.Context, client *kubernetes.Clientset, res
 				options.Status = PodRunning // default to waiting for a Running pod
 			}
 
-			tmpPod, err := client.CoreV1().Pods(k.namespace).Get(ctx, options.PodName, metav1.GetOptions{})
+			tmpPod, err := client.CoreV1().Pods(k.config.K8sNamespace).Get(ctx, options.PodName, metav1.GetOptions{})
 			if err != nil {
 				continue
 			}

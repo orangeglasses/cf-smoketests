@@ -10,6 +10,7 @@ require (
 	github.com/golang/glog v1.0.0
 	github.com/jackc/pgx/v4 v4.16.1
 	github.com/jpillora/backoff v1.0.0
+	github.com/kelseyhightower/envconfig v1.4.0
 	github.com/streadway/amqp v1.0.0
 	golang.org/x/net v0.0.0-20220706163947-c90051bbdb60
 	golang.org/x/oauth2 v0.0.0-20220630143837-2104d58473e0

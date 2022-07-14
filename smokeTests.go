@@ -12,7 +12,7 @@ import (
 )
 
 type SmokeTestProgram interface {
-	init(*cfenv.App)
+	init(*cfenv.App, SmokeTestConfig)
 	run() []SmokeTestResult
 	publish([]SmokeTestResult) error
 }
@@ -35,7 +35,7 @@ type SmokeTestResult struct {
 	Results          []SmokeTestResult `json:"results,omitempty"`
 }
 
-func (s *smokeTestProgram) init(env *cfenv.App) {
+func (s *smokeTestProgram) init(env *cfenv.App, config SmokeTestConfig) {
 	s.tests = append(s.tests,
 		meTestNew(),
 		mySQLTestNew(env),
@@ -46,7 +46,7 @@ func (s *smokeTestProgram) init(env *cfenv.App) {
 		postgresTestNew(env, "postgres-db", "Postgres"),
 		smbTestNew(env, "shared-volume", "shared SMB Volume (netApp)"),
 		s3TestNew(env),
-		k8sTestNew(),
+		k8sTestNew(config),
 	)
 
 }

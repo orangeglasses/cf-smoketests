@@ -13,10 +13,12 @@ applications:
     SITE: ((site))
     SMB_FILE: ((smb-file))
     KUBECONFIG_PATH: ((kubeconfig-path))
+    K8S_NAMESPACE: smoketest
     K8S_TESTIMAGE: ((k8s-testimage))
     K8S_IMG_PULL_SECRET: ((k8s-img-pull-secret))
-    K8S_ING_HOST1: ((k8s-ing-host1))
-    K8S_ING_HOST1_TLS_SECRET: ((k8s-ing-host1-tls-secret))
+    K8S_ING_HOSTS: ((k8s-ing-hosts))
+    K8S_ING_HOSTS_TLS: ((k8s-ing-hosts-tls))
+    K8S_ING_HOSTS_ANNOTATION: ((k8s-ing-hosts-annotation))
   processes:
   - type: web
     instances: 1
