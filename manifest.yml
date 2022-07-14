@@ -16,8 +16,8 @@ applications:
     K8S_NAMESPACE: smoketest
     K8S_TESTIMAGE: ((k8s-testimage))
     K8S_IMG_PULL_SECRET: ((k8s-img-pull-secret))
-    K8S_ING_HOSTS: ((k8s-ing-hosts))
-    K8S_ING_HOSTS_TLS: ((k8s-ing-hosts-tls))
+    K8S_ING_HOSTS: "((k8s-ing-hosts))"
+    K8S_ING_HOSTS_TLS: "((k8s-ing-hosts-tls))"
     K8S_ING_HOSTS_ANNOTATION: "((k8s-ing-hosts-annotation))"
   processes:
   - type: web
