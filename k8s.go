@@ -55,6 +55,13 @@ func (k *k8sTest) run() SmokeTestResult {
 	var results []SmokeTestResult
 
 	RunTestPart(k.CreateDeployment, "Create Deployment", &results)
+
+	//skip other tests if deployment fails
+	if !results[0].Result {
+		RunTestPart(k.DeleteDeployment, "Delete Deployment", &results)
+		return OverallResult(k8sKey, k8sName, results)
+	}
+
 	RunTestPart(k.CreateService, "Create Service", &results)
 	RunTestPart(k.CreateIngresses, "Create Ingresses", &results)
 
