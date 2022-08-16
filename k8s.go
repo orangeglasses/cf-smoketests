@@ -276,7 +276,7 @@ func (k *k8sTest) TestConnections() (interface{}, error) {
 	for _, hostname := range k.config.K8sIngHosts {
 		err := k.TestConnection(hostname)
 		if err != nil {
-			errs = append(errs, fmt.Errorf("error connecting to %v: %v", hostname, err))
+			errs = append(errs, err)
 		}
 	}
 
@@ -307,7 +307,7 @@ func (k *k8sTest) TestConnection(hostname string) error {
 	}
 
 	if status != 200 {
-		return fmt.Errorf("failed to reach test deployment")
+		return fmt.Errorf("failed to reach test deployment (hostname: %v)", hostname)
 	}
 
 	return nil
