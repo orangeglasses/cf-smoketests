@@ -276,12 +276,12 @@ func (k *k8sTest) TestConnections() (interface{}, error) {
 	for _, hostname := range k.config.K8sIngHosts {
 		err := k.TestConnection(hostname)
 		if err != nil {
-			errs = append(errs, err)
+			errs = append(errs, fmt.Errorf("error connecting to %v: %v", hostname, err))
 		}
 	}
 
 	if len(errs) > 0 {
-		return nil, fmt.Errorf("One or more conneciton tests failed: %v", errs)
+		return nil, fmt.Errorf("One or more connection tests failed: %v", errs)
 	}
 
 	return true, nil
