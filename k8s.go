@@ -296,7 +296,7 @@ func (k *k8sTest) TestConnection(hostname string) error {
 	}
 	httpClient := &http.Client{Transport: tr}
 
-	for retries := 12; retries > 0 && status != 200; retries-- {
+	for retries := 60; retries > 0 && status != 200; retries-- {
 		r, err := httpClient.Get("https://" + hostname)
 		if err != nil {
 			return err
