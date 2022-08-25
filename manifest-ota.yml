@@ -1,13 +1,12 @@
+---
+version: 1
 applications:
 - name: smoketests
-  instances: 1
-  routes:
-  - route: smoketests.apps.ota.haas.politie
-  memory: 32M
-  disk_quota: 512M
   buildpacks:
-  - go_buildpack
+    - go_buildpack
   env:
+    FORCE_HTTPS: "true"
+    TZ: Europe/Amsterdam
     GOPACKAGENAME: smoketests
     GOVERSION: go1.17
     DASHBOARD_DATA_ENDPOINT: https://smoketestsdashboard.apps.ota.haas.politie/api/smokestate
@@ -16,6 +15,9 @@ applications:
     TYPE: OTA
     SITE: HaaS Platform
     SMB_FILE: smoketestfile
+  routes:
+    - route: smoketests.apps.ota.haas.politie
+      protocol: http1
   services:
   - smoketests-db
   - smoketests-rabbitmq
@@ -27,3 +29,24 @@ applications:
   - smoketests-smb
   - smoketests-s3
   stack: cflinuxfs3
+  metadata:
+    annotations:
+      contact: "haas-platform.hosting.ict@politie.nl"
+      description: "Platform Team dashboard and smoketesting client"
+      technical-documentation-url: https://gitlab.unix.int.politie/haas/cf-smoketests/-/blob/master/README.md
+      mattermost: "platformteam-haas"
+      dataclassication: "politie intern"
+      nrusers: ">1000"
+    labels:
+      in-production: "true"
+      api: "false"
+      app-visibility: "true"
+      private: "false"
+  processes:
+  - type: web
+    instances: 1
+    memory: 32M
+    disk_quota: 512M
+    health-check-type: process
+    health-check-invocation-timeout: 10
+    timeout: 10
