@@ -1,70 +1,55 @@
-groups:
-- name: smoketests-pipeline
-  jobs:
-  - push-smoketest-app
-  - run-tests
-  
-resource_types:
-- name: pivnet
-  type: docker-image
-  source:
-    repository: harbor.cp.haas.politie:443/library/pivnet-resource
-    tag: latest
-    insecure_registries:
-    - harbor.cp.haas.politie:443
-      
-resources:
-- name: resource-git-smoketests
-  type: git
-  icon: gitlab
-  source:
-    uri: ((git-uri-smoketests))
-    username: ((cf-smoketest-git-token.username))
-    password: ((cf-smoketest-git-token.password))
-    branch: master
-    
-- name: pcf-app-autoscaler
-  type: pivnet
-  icon: file-powerpoint
-  tags: [ "internet" ]
-  source:
-    api_token: ((api-token))
-    product_slug: pcf-app-autoscaler
-
-- name: time-trigger
-  type: time
-  icon: clock-outline
-  source:
-    interval: 5m
-
+---
 jobs:
 - name: push-smoketest-app
   build_logs_to_retain: 100
   public: false
   serial: true
   plan:
-    - get: time-trigger
-      trigger: true
-    - get: resource-git-smoketests
-      trigger: true
-    - task: task-deploy
-      file: resource-git-smoketests/ci/deploy.yml
-      params:
-        api: https://api.sys.((foundation)).haas.politie
-        username: ((cf-user))
-        password: ((cf-password))
-        organization: ((cf-org))
-        space: ((cf-space))
-        manifest: manifest-((foundation)).yml
-    - task: clean-up-buildpack-cache
-      file: resource-git-smoketests/ci/clean-up.yml
-      params:
-        api: https://api.sys.((foundation)).haas.politie
-        username: ((cf-user))
-        password: ((cf-password))
-        organization: ((cf-org))
-        space: ((cf-space))
-
+  - get: time-trigger
+    trigger: true
+  - get: resource-git-smoketests
+  - task: task-deploy
+    file: resource-git-smoketests/ci/deploy.yml
+    params:
+      api: ((cf-api))
+      username: ((cf-user))
+      password: ((cf-password))
+      organization: ((cf-org))
+      space: ((cf-space))
+      manifest: ((manifest_filename))
+      services: ((services))
+- name: push-smoketest-sso-resource
+  build_logs_to_retain: 100
+  public: false
+  serial: true
+  plan:
+  - get: time-trigger
+    trigger: true
+  - get: resource-git-smoketests-sso-resource
+  - task: task-deploy
+    file: resource-git-smoketests-sso-resource/ci/deploy.yml
+    params:
+      api: ((cf-api))
+      username: ((cf-user))
+      password: ((cf-password))
+      organization: ((cf-org))
+      space: ((cf-space))
+      manifest: ((manifest_filename))
+- name: configure-uaa
+  build_logs_to_retain: 100
+  public: false
+  serial: true
+  plan:
+  - get: time-trigger
+    trigger: true
+  - get: resource-git-smoketests
+  - task: task-deploy
+    file: resource-git-smoketests/ci/configure-uaa.yml
+    params:
+      uaatarget: ((uaa-target))
+      uaaadminuser: ((uaa-admin-user))
+      uaaadminpassword: ((uaa-admin-password))
+      uaaclientid: ((uaa-client-id))
 - name: run-tests
   build_logs_to_retain: 100
   public: false
@@ -72,19 +57,50 @@ jobs:
   plan:
   - get: resource-git-smoketests
   - get: pcf-app-autoscaler
-    tags: [ "internet" ]
   - get: time-trigger
     trigger: true
-    passed: [ push-smoketest-app ]
+    passed: [ push-smoketest-app, configure-uaa, push-smoketest-sso-resource ]
   - task: testscript
     file: resource-git-smoketests/ci/tests.yml
     params:
-      CHECK_URL: https://smoketests.apps.((foundation)).haas.politie/v1/status
+      CHECK_URL: ((check_url))
   - task: scaletest
     file: resource-git-smoketests/ci/scale.yml
     params:
-      api: https://api.sys.((foundation)).haas.politie
+      api: ((cf-api))
       username: ((cf-user))
       password: ((cf-password))
       organization: ((cf-org))
       space: ((cf-space))
+
+resource_types:
+- name: pivnet
+  type: docker-image
+  source:
+    repository: pivotalcf/pivnet-resource
+    tag: latest-final
+
+resources:
+- name: resource-git-smoketests
+  type: git
+  source:
+    uri: ((git-uri-smoketests))
+    private_key: ((git-private-key))
+
+- name: resource-git-smoketests-sso-resource
+  type: git
+  source:
+    uri: ((git-uri-smoketests-sso-resource))
+    private_key: ((git-private-key))
+
+- name: time-trigger
+  type: time
+  source:
+    interval: ((interval))
+
+- name: pcf-app-autoscaler
+  type: pivnet
+  source:
+    api_token: ((api-token))
+    product_slug: pcf-app-autoscaler
+

@@ -19,7 +19,7 @@ cf install-plugin pcf-app-autoscaler/autoscaler-for-pcf-cliplugin-linux64-binary
 
 # the app to scale
 
-appName="smoketests"
+appName="smokeTests"
 appGUID=$(cf app $appName --guid)
 echo 'Application Name: '$appName
 echo 'Application GUID: '$appGUID

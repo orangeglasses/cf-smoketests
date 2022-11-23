@@ -12,7 +12,7 @@ import (
 )
 
 type SmokeTestProgram interface {
-	init(*cfenv.App)
+	init(*cfenv.App, SmokeTestConfig)
 	run() []SmokeTestResult
 	publish([]SmokeTestResult) error
 }
@@ -35,7 +35,7 @@ type SmokeTestResult struct {
 	Results          []SmokeTestResult `json:"results,omitempty"`
 }
 
-func (s *smokeTestProgram) init(env *cfenv.App) {
+func (s *smokeTestProgram) init(env *cfenv.App, config SmokeTestConfig) {
 	s.tests = append(s.tests,
 		meTestNew(),
 		mySQLTestNew(env),
@@ -44,13 +44,16 @@ func (s *smokeTestProgram) init(env *cfenv.App) {
 		redisTestNew(env, "p-redis", "Redis Shared Cluster"),
 		redisTestNew(env, "p.redis", "Redis On-Demand"),
 		postgresTestNew(env, "postgres-db", "Postgres"),
-	        smbTestNew(env, "shared-volume", "shared SMB Volume (netApp)"),
-	        s3TestNew(env))
+		smbTestNew(env, "shared-volume", "shared SMB Volume (netApp)"),
+		s3TestNew(env),
+		k8sTestNew(config),
+	)
+
 }
 
 func (s *smokeTestProgram) run() []SmokeTestResult {
 
-//	results := make([]SmokeTestResult, len(s.tests), len(s.tests))
+	//	results := make([]SmokeTestResult, len(s.tests), len(s.tests))
 	var results []SmokeTestResult
 
 	for _, test := range s.tests {

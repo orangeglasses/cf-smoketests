@@ -4,7 +4,7 @@
 # apt-get install curl -y
 # apt-get install jq -y
 
-json=$(curl -k $CHECK_URL)
+json=$(curl $CHECK_URL)
 echo $json
 
 jq_output="$(echo $json | jq -er ".[]")"

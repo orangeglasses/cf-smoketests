@@ -1,8 +1,6 @@
 package main
 
-import (
-	"os"
-)
+import "os"
 
 type me struct {
 }
@@ -15,7 +13,7 @@ func (m *me) run() SmokeTestResult {
 	name := "Me"
 	sitetype := os.Getenv("TYPE")
 	sitename := os.Getenv("SITE")
-	if (sitetype != "" && sitename != "") {
+	if sitetype != "" && sitename != "" {
 		name = sitetype + "\n" + sitename
 	}
 	return SmokeTestResult{Key: "me", Name: name, Result: true}

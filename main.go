@@ -3,8 +3,8 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"net/http"
 	"log"
+	"net/http"
 
 	cfenv "github.com/cloudfoundry-community/go-cfenv"
 )
@@ -36,8 +36,13 @@ func main() {
 		panic(err)
 	}
 
+	config, err := smokeTestsConfigLoad()
+	if err != nil {
+		panic(err)
+	}
+
 	program = &smokeTestProgram{}
-	program.init(appEnv)
+	program.init(appEnv, config)
 
 	http.HandleFunc("/v1/status", handlerStatus)
 	http.ListenAndServe(fmt.Sprintf(":%v", appEnv.Port), nil)

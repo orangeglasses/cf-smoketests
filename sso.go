@@ -49,6 +49,10 @@ func ssoTestNew(env *cfenv.App) SmokeTest {
 	adfsResourceUrl = os.Getenv("ADFS_RES_URL")
 	uaaResourceUrl = os.Getenv("UAA_RES_URL")
 
+	if uaaResourceUrl == "" || adfsResourceUrl == "" {
+		return nil
+	}
+
 	identityServices, err := env.Services.WithLabel("p-identity")
 	if err != nil {
 		return &ssoTest{"", "", ""}

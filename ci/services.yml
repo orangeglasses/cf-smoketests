@@ -1,9 +1,8 @@
   services:
   - smoketests-db
-  #- smoketests-rabbitmq
+  - smoketests-sso-uaa
+  - smoketests-rabbitmq
   - smoketests-redis
+  - smoketests-nfs
   - autoscaler
-  - smoketests-on-rabbitmq
-  #- smoketests-on-redis
-  - smoketests-postgres
-  - smoketests-smb
+
