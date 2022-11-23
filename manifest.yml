@@ -1,0 +1,28 @@
+applications:
+- name: smoketests
+  routes:
+  - route: ((route))
+  buildpacks: 
+  - go_buildpack
+  env:
+    GOPACKAGENAME: smoketests
+    DASHBOARD_DATA_ENDPOINT: https://((dashboard-fqdn))/api/smokestate
+    #ADFS_RES_URL: ((adfs-resource-url)) #http://((sso-resource-fqdn))/adfsLogin
+    #UAA_RES_URL: ((uaa-resource-url)) #http://((sso-resource-fqdn))/uaaLogin
+    TYPE: ((type))
+    SITE: ((site))
+    SMB_FILE: ((smb-file))
+    KUBECONFIG_PATH: ((kubeconfig-path))
+    K8S_NAMESPACE: smoketest
+    K8S_TESTIMAGE: ((k8s-testimage))
+    K8S_IMG_PULL_SECRET: ((k8s-img-pull-secret))
+    K8S_ING_HOSTS: "((k8s-ing-hosts))"
+    K8S_ING_HOSTS_TLS: "((k8s-ing-hosts-tls))"
+    K8S_ING_HOSTS_CLASS: "((k8s-ing-hosts-class))"
+  processes:
+  - type: web
+    instances: 1
+    memory: 32M
+    disk_quota: 512M
+    health-check-type: port
+  services:
